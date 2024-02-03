@@ -1,4 +1,3 @@
-
 # 🌟 Todo App with Django & Tailwind CSS! 📝🚀
 
 ## 🔐 Features:
