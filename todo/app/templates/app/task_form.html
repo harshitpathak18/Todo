@@ -1,0 +1,51 @@
+{% extends "app/base.html" %}
+{% block content %}
+
+<section class="text-gray-600 body-font relative">
+    <div class="container px-5 py-1 mx-auto">
+      <div class="flex flex-col text-center w-full mb-4">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Create Task</h1>
+      </div>
+      
+      
+
+      <div class="lg:w-1/2 md:w-2/3 mx-auto">
+        <a href="{% url 'task-list'%}" class=" w-full flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-7 h-7">
+                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-4.28 9.22a.75.75 0 0 0 0 1.06l3 3a.75.75 0 1 0 1.06-1.06l-1.72-1.72h5.69a.75.75 0 0 0 0-1.5h-5.69l1.72-1.72a.75.75 0 0 0-1.06-1.06l-3 3Z" clip-rule="evenodd" />
+            </svg>
+            <span>Go back to tasks</span>
+        </a>
+
+        <form class="flex flex-wrap -m-2 mt-1" method="post">
+          {% csrf_token %}
+
+          <div class="p-2 w-full">
+            <div class="relative">
+              <label for="name" class="leading-7 text-sm text-gray-600 ">Title</label>
+              {{form.title}}
+            </div>
+          </div>
+
+          <div class="p-2 w-full">
+            <div class="relative">
+              <label for="message" class="leading-7 text-sm text-gray-600">Description</label>
+              {{form.description}}
+            </div>
+          </div>
+
+          <div class="">
+            <div class="flex items-center">
+              <label for="link-checkbox" class="ms-1 text-sm  text-gray-600 dark:text-white-300">Complete</label>
+              {{form.complete}}
+          </div>
+          </div>
+
+          <div class="p-2 w-full flex">
+            <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-md">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

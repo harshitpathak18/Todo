@@ -1,0 +1,110 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-15 mx-auto">
+
+            <form method="get" class="flex">
+                <label for="simple-search" class="sr-only">Search</label>
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
+                        </svg>
+                    </div>
+                    <input name="search-area" type="text" id="simple-search" class="bg-white border border-white-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search tasks..." value={{search_input}}>
+                </div>
+                <button type="submit" class="p-2.5 ms-3 text-sm font-medium text-white bg-black-700 rounded-lg border border-black-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button>
+            </form>
+            
+
+
+            
+            
+            <div class="flex flex-wrap -mx-4 mt-1">
+
+                <div class="w-full lg:w-1/3 md:w-1/3 px-3 py-2">
+                    <div class="flex flex-col h-full p-8 rounded-lg border-2 border-gray-300">
+                        
+                        <a href="{% url 'task-create' %}" class="inline-flex  justify-center text-indigo-600 mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-20 h-20">
+                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+
+                        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2 text-center">
+                            Add Task
+                        </h2>
+                    </div>
+                </div>
+
+                {% for task in tasks %}
+                <div class="w-full lg:w-1/3 md:w-1/3 px-3 py-2">
+                    <div class="flex flex-col h-full p-3 rounded-lg border-2 border-gray-300">
+                        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">
+                            {{ task.title }}
+                        </h2>
+                        <p class="leading-relaxed text-base text-black mb-2">
+                            {{ task.description|capfirst }} 
+                        </p>
+
+                        <p class="leading-relaxed text-base text-gray mb-1">
+                            {% if task.complete %}
+                                Completed                            
+                            {% else %}
+                                Incomplete
+                            {% endif %}
+                        </p>
+
+                        <p class="leading-relaxed text-base mb-2 text-gray">
+                            Created: {{ task.created|date:"j F, Y" }}
+                            {% comment %} {{ task.created|timesince }} ago {% endcomment %}
+                        </p>
+
+                        <div class="flex ">
+                            {% comment %} <a class="text-white inline-flex items-center p-2 bg-indigo-500 rounded-full" href="{% url 'task-detail' task.pk %}">
+                                View  
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-2">
+                                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                    <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clip-rule="evenodd" />
+                                </svg>
+                                  
+                            </a> {% endcomment %}
+
+                            <a class=" text-white inline-flex items-center p-2 bg-yellow-500 rounded-full" href="{% url 'task-update' task.pk %}">
+                                Edit 
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-2">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                </svg>
+                                  
+                            </a>
+
+                            <a class=" ml-2 text-white inline-flex items-center p-2 bg-red-500 rounded-full" href="{% url 'task-delete' task.pk %}">
+                                Delete
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-2">
+                                    <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+                                  </svg>                                  
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="w-full lg:w-1/3 md:w-1/2 px-4 py-2">
+                    <div class="flex flex-col h-full p-8 rounded-lg border-2 border-gray-300">
+                        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">
+                            No items in list      
+                        </h2>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
